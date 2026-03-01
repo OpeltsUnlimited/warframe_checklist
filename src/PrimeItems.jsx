@@ -119,6 +119,28 @@ function ItemsShow({itemObject, totalRequired, wantedHasAmounts, setWantedHasAmo
         wanted[uniqueName] = element
         setWantedHasAmounts(wanted)
     }
+
+    var primeComponents = []
+    for (const component of itemObject.components) {
+        primeComponents.push(
+            <div className='row'>
+                <div className='col'>
+                    {component.name}
+                </div>
+                <div className='col'>
+                    <button onClick={() => {manupulateHave(component.uniqueName, 1)}}>+</button>
+                </div>
+                <div className='col'>
+                    {wantedHasAmounts[component.uniqueName].has}
+                </div>
+                <div className='col'>
+                    <button onClick={() => {manupulateHave(component.uniqueName, -1)}}>-</button>
+                </div>
+            </div>
+        )
+    }
+
+
         
     return (
         <div className='row'>
@@ -136,6 +158,9 @@ function ItemsShow({itemObject, totalRequired, wantedHasAmounts, setWantedHasAmo
             </div>
             <div className='col-1'>
                 {totalRequired[itemObject.uniqueName]}
+            </div>
+            <div className='col'>
+                {primeComponents}
             </div>
         </div>
     )
