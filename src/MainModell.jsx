@@ -16,7 +16,7 @@ class MainModell {
     }
     
     async interpret() {
-        const wantedHasAmounts = JSON.parse(localStorage.getItem('wantedHasAmounts'));
+        var wantedHasAmounts = JSON.parse(localStorage.getItem('wantedHasAmounts')) || {};
 
         var initialNeed = {}
         for (const primeName of Object.keys(this.data.prime)) {
