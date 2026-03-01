@@ -1,47 +1,47 @@
-import js from "@eslint/js";
-
 class MainModell {
     constructor() {
-        this.data = 0
-
-        this.objects = new Map() // unique_name / object
-        this.categorys = new Map() // Map(category, Map(type, List(object, Refference)))
+        this.data = undefined
+        this.nameToUnique = {}
+        this.needed_Formula = {} // unique_name / object
     }
     
     async load() {
         try {
-            var response = await fetch("https://raw.githubusercontent.com/WFCD/warframe-items/refs/heads/master/data/json/All.json");
+            var response = await fetch("data.json");
             this.data = await response.json();
+            console.log('Load OK')
         } catch (e) {
             console.log('Error', e);
         }
     }
     
     async interpret() {
-        for(var i = 0; i < this.data.length; i++) {
-            const j = this.data[i]
-            const cat = j["category"]
-            const typ = j["type"]
-            const uniqueName = j["uniqueName"]
+        const wantedHasAmounts = JSON.parse(localStorage.getItem('wantedHasAmounts'));
 
-            var obj = new Map()
-            obj["category"] = cat
-            obj["type"] = typ
-            obj["name"] = j["name"]
+        var initialNeed = {}
+        for (const primeName of Object.keys(this.data.prime)) {
+            const prime = this.data.prime[primeName]
+            this.nameToUnique[primeName] = prime.uniqueName
 
-            if (!this.categorys.has(cat) ) {
-                this.categorys.set(cat, new Map());
+            const tempHas = wantedHasAmounts[prime.uniqueName] || 0
+
+            initialNeed[prime.uniqueName] = {need:1, has:tempHas}
+
+            var needed_dict = {}
+            for (const component of prime.components) {
+                var comt_entry = needed_dict[component.uniqueName]
+                if (!comt_entry) {
+                    comt_entry = 0
+                }
+                const tempHas = wantedHasAmounts[prime.uniqueName] || 0
+                initialNeed[component.uniqueName] = {need:0, has:tempHas}
+                needed_dict[component.uniqueName] = comt_entry + component.itemCount
+                this.nameToUnique[component.name] = component.uniqueName
             }
-            var map_cat = this.categorys.get(cat)
 
-            if (!map_cat.has(typ) ) {
-                map_cat.set(typ, new Array());
-            }
-            var map_typ = map_cat.get(typ)
-            map_typ.push(obj)
-
-            this.objects.set(uniqueName, obj)
+            this.needed_Formula[prime.uniqueName] = needed_dict
         }
+        return initialNeed
     }
 }
 

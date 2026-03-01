@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "tests": "node --test tests/*.js",
+    "tests": "node --test tests/test_*.js",
+    "predev": "node helpers/reduce_data.js",
     "dev": "vite",
+    "prebuild": "node helpers/reduce_data.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
