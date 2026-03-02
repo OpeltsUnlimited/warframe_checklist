@@ -195,7 +195,7 @@ function selectedRelicRender(relic, rel_list, model, totalRequired, wantedHasAmo
         const reward_unique = model.nameToUnique[reward]
         const reward_needed = totalRequired[reward_unique]
         var color = "white"
-        if (reward_needed >= 0) {
+        if (reward_needed > 0) {
             color = "orange"
         }
         if (reward_needed == undefined) {
