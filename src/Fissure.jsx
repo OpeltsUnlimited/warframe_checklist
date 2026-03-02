@@ -71,6 +71,11 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
     var relicDiffsLine = []
     var relicDiffs = []
     var lastLetter = undefined;
+
+    var currentlyDropping= []
+    var currentlyVarzia= []
+
+
     for (const r_name of r_nameList) {
         const currentLetter = r_name[0]
         if (lastLetter && lastLetter != currentLetter) {
@@ -93,12 +98,15 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
         var buttonColor = "red"
         var buttonText = "white"
         if (relic.drops) {
+            currentlyDropping.push(r_name)
             buttonColor = "green"
             buttonText = "white"
         } else if (relic.Varzia_e) {
+            currentlyVarzia.push(r_name)
             buttonColor = "lime"
             buttonText = "black"
         } else if (relic.Varzia_t) {
+            currentlyVarzia.push(r_name)
             buttonColor = "yellow"
             buttonText = "black"
         }
@@ -124,6 +132,23 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
             {relicDiffsLine}
         </tr>
     )
+    
+    var currentlyDroppingView= []
+    for (const name of currentlyDropping) {
+        currentlyDroppingView.push(
+            <div className="col">
+                {name}
+            </div>
+        )
+    }
+    var currentlyVarziaView= []
+    for (const name of currentlyVarzia) {
+        currentlyVarziaView.push(
+            <div className="col">
+                {name}
+            </div>
+        )
+    }
 
     var selectedRelicsView = selectedRelicsRender(selectedRelics, rel_list, model, totalRequired, wantedHasAmounts, setWantedHasAmounts)
 
@@ -138,9 +163,21 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
             </table>
             </div>
             <div className="col">
+                <div className='row'>
+                <div className="col">
                 <Button onClick={() => {setSelectedRelics([undefined,undefined,undefined,undefined])}}>
                     Clear
                 </Button>
+                </div>
+                <div className="col">
+                    <div className='row'>
+                        {currentlyDroppingView}
+                    </div>
+                    <div className='row'>
+                        {currentlyVarziaView}
+                    </div>
+                </div>
+                </div>
             {selectedRelicsView}
             </div>
         </div>
