@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 
 function Fissures({model, totalRequired, wantedHasAmounts, setWantedHasAmounts}) {
     const [selectedFissure, setSelectedFissure] = useState(0);
+    const [selectedRelics, setSelectedRelics] = useState([undefined,undefined,undefined,undefined]);
 
     const reliclist = model.data.relics
 
@@ -22,22 +23,45 @@ function Fissures({model, totalRequired, wantedHasAmounts, setWantedHasAmounts})
             <div className="nav nav-tabs">
                 {relicDiffs}
             </div>
-            <Fissure selectedFissure={selectedFissure} reliclist={reliclist} model={model} totalRequired={totalRequired} wantedHasAmounts={wantedHasAmounts} setWantedHasAmounts={setWantedHasAmounts}>
+            <div className='row'>
+            <div className='col-8'>
+            <Fissure selectedFissure={selectedFissure} reliclist={reliclist} model={model} totalRequired={totalRequired} wantedHasAmounts={wantedHasAmounts} 
+            setWantedHasAmounts={setWantedHasAmounts} selectedRelics={selectedRelics} setSelectedRelics={setSelectedRelics}>
 
             </Fissure>
+            </div>
+            <div className='col-4'>
+                <RelicsList selectedRelics={selectedRelics} setSelectedRelics={setSelectedRelics} reliclist={reliclist} model={model} totalRequired={totalRequired} wantedHasAmounts={wantedHasAmounts} setWantedHasAmounts={setWantedHasAmounts}>
+                </RelicsList>
+            </div>
+            </div>
         </div>
     )
 }
 
-function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmounts, setWantedHasAmounts}) {
-    const [selectedRelics, setSelectedRelics] = useState([undefined,undefined,undefined,undefined]);
-    useEffect(() => {
-        setSelectedRelics([undefined,undefined,undefined,undefined]);
-    }, [selectedFissure]);
+function relicColour(relic) {
+        var buttonColor = "red"
+        var buttonText = "white"
+
+        if (relic.drops) {
+            buttonColor = "green"
+            buttonText = "white"
+        } else if (relic.Varzia_e) {
+            buttonColor = "lime"
+            buttonText = "black"
+        } else if (relic.Varzia_t) {
+            buttonColor = "yellow"
+            buttonText = "black"
+        }
+
+        return {buttonColor, buttonText}
+}
+
+function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmounts, setWantedHasAmounts, selectedRelics, setSelectedRelics}) {
 
     function relicSelected(relic) {
         var list = [...selectedRelics] // copy
-        list.unshift(relic);
+        list.unshift({fissure: selectedFissure,relic: relic});
         list.length = 4;
         setSelectedRelics(list)
     }
@@ -72,10 +96,6 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
     var relicDiffs = []
     var lastLetter = undefined;
 
-    var currentlyDropping= []
-    var currentlyVarzia= []
-
-
     for (const r_name of r_nameList) {
         const currentLetter = r_name[0]
         if (lastLetter && lastLetter != currentLetter) {
@@ -95,21 +115,7 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
         }
 
         const relic = rel_list[r_name]
-        var buttonColor = "red"
-        var buttonText = "white"
-        if (relic.drops) {
-            currentlyDropping.push(r_name)
-            buttonColor = "green"
-            buttonText = "white"
-        } else if (relic.Varzia_e) {
-            currentlyVarzia.push(r_name)
-            buttonColor = "lime"
-            buttonText = "black"
-        } else if (relic.Varzia_t) {
-            currentlyVarzia.push(r_name)
-            buttonColor = "yellow"
-            buttonText = "black"
-        }
+        const {buttonColor, buttonText} = relicColour(relic)
 
         const buttonStyle = {
             color: buttonText,
@@ -132,28 +138,9 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
             {relicDiffsLine}
         </tr>
     )
-    
-    var currentlyDroppingView= []
-    for (const name of currentlyDropping) {
-        currentlyDroppingView.push(
-            <div className="col">
-                {name}
-            </div>
-        )
-    }
-    var currentlyVarziaView= []
-    for (const name of currentlyVarzia) {
-        currentlyVarziaView.push(
-            <div className="col">
-                {name}
-            </div>
-        )
-    }
-
-    var selectedRelicsView = selectedRelicsRender(selectedRelics, rel_list, model, totalRequired, wantedHasAmounts, setWantedHasAmounts)
 
     return (
-        <div>
+        <div >
         <div className='row'>
             <div className="col">
             <table>
@@ -162,44 +149,32 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
                 </tbody>
             </table>
             </div>
-            <div className="col">
-                <div className='row'>
-                <div className="col">
-                <Button onClick={() => {setSelectedRelics([undefined,undefined,undefined,undefined])}}>
-                    Clear
-                </Button>
-                </div>
-                <div className="col">
-                    <div className='row'>
-                        {currentlyDroppingView}
-                    </div>
-                    <div className='row'>
-                        {currentlyVarziaView}
-                    </div>
-                </div>
-                </div>
-            {selectedRelicsView}
-            </div>
         </div>
         </div>
     )
 }
 
-function selectedRelicsRender(selectedRelics, rel_list, model, totalRequired, wantedHasAmounts, setWantedHasAmounts) {
+function RelicsList({selectedRelics, setSelectedRelics, reliclist, model, totalRequired, wantedHasAmounts, setWantedHasAmounts}) {
+    console.log("asfda", selectedRelics)
     var selectedRelicview =[]
     for (const relic of selectedRelics) {
-        selectedRelicview.push(selectedRelicRender(relic, rel_list, model, totalRequired, wantedHasAmounts, setWantedHasAmounts))
+        selectedRelicview.push(selectedRelicRender(relic, reliclist, model, totalRequired, wantedHasAmounts, setWantedHasAmounts, selectedRelics, setSelectedRelics))
     }
 
     return (
             <div className="col">
+                
+                <Button onClick={() => {setSelectedRelics([undefined,undefined,undefined,undefined])}}>
+                    Clear
+                </Button>
+
                 {selectedRelicview}
             </div>
     )
 }
 
-function selectedRelicRender(relic, rel_list, model, totalRequired, wantedHasAmounts, setWantedHasAmounts) {
-    if (!relic || !rel_list[relic]) {
+function selectedRelicRender(relic, reliclist, model, totalRequired, wantedHasAmounts, setWantedHasAmounts, selectedRelics, setSelectedRelics) {
+    if (!relic) {
     return (
                 <div className='row row-cols-2' style={{border: "1px solid black",margin: "2px"}}>
                     <div className="col">
@@ -227,8 +202,16 @@ function selectedRelicRender(relic, rel_list, model, totalRequired, wantedHasAmo
         setWantedHasAmounts(wanted)
     }
 
+
+    const relicObject = reliclist[relic.fissure][relic.relic]
+    const {buttonColor, buttonText} = relicColour(relicObject)
+    const buttonStyle = {
+        color: buttonText,
+        backgroundColor: buttonColor,   
+    }
+
     var rewadlist = []
-    for (const reward of rel_list[relic].rewards) {
+    for (const reward of relicObject.rewards) {
         const reward_unique = model.nameToUnique[reward]
         const reward_needed = totalRequired[reward_unique]
         var color = "white"
@@ -249,11 +232,13 @@ function selectedRelicRender(relic, rel_list, model, totalRequired, wantedHasAmo
     return (
                 <div className='row' style={{border: "1px solid black",margin: "2px"}}>
                     <div className="col-8 span3">
-                        {relic}
+                        <Button style={buttonStyle} onClick={() => {setSelectedRelics(selectedRelics.filter(item => item !== relic))}}>
+                        </Button>
+                        {relic.fissure} {relic.relic}
                     </div>
-                <div className='row row-cols-3' style={{border: "1px solid black",margin: "2px"}}>
-                    {rewadlist}
-                </div>
+                    <div className='row row-cols-3' style={{border: "1px solid black",margin: "2px"}}>
+                        {rewadlist}
+                    </div>
                 </div>
     )
 }
