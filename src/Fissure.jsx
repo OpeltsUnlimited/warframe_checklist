@@ -120,13 +120,13 @@ function Fissure({selectedFissure, reliclist, model, totalRequired, wantedHasAmo
         const buttonStyle = {
             color: buttonText,
             backgroundColor: buttonColor,
-            border: `5px solid ${buttonBorderColor}`,   
+            border: `3px solid ${buttonBorderColor}`,   
         }
         
         const div_key = `line_${r_name}`
         relicDiffsLine.push(
             <td key={div_key}>
-            <Button style={buttonStyle}
+            <Button size="sm" style={buttonStyle}
             onClick={() => { relicSelected(r_name) }}>
                 {r_name}
             </Button></td>
