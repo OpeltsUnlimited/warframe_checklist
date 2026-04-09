@@ -78,7 +78,9 @@ function reduceFile(dataIn) {
         if (!relicgroupnr) {
             relicgroupnr = {
                 uniqueName: relic.uniqueName.split("/").at(-1), // compare with varzia list
+
                 drops: relic?.drops?.length > 0,//.map(loc => (loc.location)),
+
                 rewards: relic.rewards.map(reward => (reward.item.name)),
             }
             relicgroup[r_name] = relicgroupnr
