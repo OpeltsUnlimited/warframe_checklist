@@ -3929,7 +3929,7 @@
       },
       "A20": {
         "uniqueName": "T4VoidProjectionGyrePrimeABronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Alternox Prime Blueprint",
           "Kompressa Prime Receiver",
@@ -4145,7 +4145,7 @@
       },
       "C10": {
         "uniqueName": "T4VoidProjectionCalibanPrimeCBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Caliban Prime Systems Blueprint",
           "Daikyu Prime Lower Limb",
@@ -5045,7 +5045,7 @@
       },
       "N13": {
         "uniqueName": "T4VoidProjectionYareliPrimeBBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Nautilus Prime Cerebrum",
           "Kompressa Prime Receiver",
@@ -5309,7 +5309,7 @@
       },
       "P8": {
         "uniqueName": "T4VoidProjectionLavosPrimeABronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Protea Prime Chassis Blueprint",
           "Epitaph Prime Barrel",
@@ -5489,7 +5489,7 @@
       },
       "S18": {
         "uniqueName": "T4VoidProjectionCalibanPrimeABronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Sevagoth Prime Chassis Blueprint",
           "Vadarya Prime Receiver",
@@ -6560,7 +6560,7 @@
       },
       "D7": {
         "uniqueName": "T1VoidProjectionGyrePrimeABronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Daikyu Prime Grip",
           "Velox Prime Blueprint",
@@ -7149,7 +7149,7 @@
       },
       "L7": {
         "uniqueName": "T1VoidProjectionGyrePrimeBBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Lavos Prime Systems Blueprint",
           "Vadarya Prime Barrel",
@@ -9768,7 +9768,7 @@
       },
       "P17": {
         "uniqueName": "T2VoidProjectionGyrePrimeBBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Protea Prime Chassis Blueprint",
           "Kestrel Prime Blueprint",
@@ -10248,7 +10248,7 @@
       },
       "V11": {
         "uniqueName": "T2VoidProjectionCalibanPrimeBBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Velox Prime Barrel",
           "Caliban Prime Blueprint",
@@ -10260,7 +10260,7 @@
       },
       "V12": {
         "uniqueName": "T2VoidProjectionCalibanPrimeCBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Vadarya Prime Blueprint",
           "Bronco Prime Barrel",
@@ -10284,7 +10284,7 @@
       },
       "V14": {
         "uniqueName": "T2VoidProjectionGyrePrimeCBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Velox Prime Barrel",
           "Trumna Prime Stock",
@@ -10476,7 +10476,7 @@
       },
       "Y1": {
         "uniqueName": "T2VoidProjectionGyrePrimeDBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Yareli Prime Neuroptics Blueprint",
           "Okina Prime Handle",
@@ -10910,7 +10910,7 @@
       },
       "C6": {
         "uniqueName": "T3VoidProjectionLavosPrimeABronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Cedo Prime Blueprint",
           "Velox Prime Blueprint",
@@ -11042,7 +11042,7 @@
       },
       "D9": {
         "uniqueName": "T3VoidProjectionLavosPrimeDBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Dual Zoren Prime Blade",
           "Orthos Prime Blueprint",
@@ -11883,7 +11883,7 @@
       },
       "O3": {
         "uniqueName": "T3VoidProjectionGyrePrimeDBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Okina Prime Blueprint",
           "Akbronco Prime Link",
@@ -12003,7 +12003,7 @@
       },
       "P9": {
         "uniqueName": "T3VoidProjectionGyrePrimeBBronze",
-        "drops": true,
+        "drops": false,
         "rewards": [
           "Protea Prime Systems Blueprint",
           "Orthos Prime Blade",
