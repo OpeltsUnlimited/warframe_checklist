@@ -8,7 +8,15 @@ function reduceFile(dataIn) {
     var primedata = {}
     data["prime"] = primedata
 
-    const primes = dataIn.filter((el) => (el.isPrime == true & el.masterable == true))
+    function checkIsPrime(el) {
+        if (el.isPrime) {
+            return true
+        }
+        // if a component has a "primeSellingPrice" the whole thing is probably prime ...
+        return el?.components?.some(x => x?.primeSellingPrice !== undefined) ?? false;
+    }
+
+    const primes = dataIn.filter((el) => (checkIsPrime(el) & el.masterable == true))
 
     for (const prime of primes) {
 
